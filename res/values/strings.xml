@@ -8,10 +8,10 @@
     <string name="stop">Stop</string>
     <string name="activity_prompt">Select your Current Activity</string>
     <string name="action_settings">Settings</string>
-    <string name="response_driving">I'm driving right now. I'll get back to you when I arrive at my destination</string>
-    <string name="response_cycling">I'm enjoying my bike ride at the moment, I'll get back to you later</string>
-    <string name="response_hiking">I'm out for a stroll. I'll talk to you later.</string>
-    <string name="response_running">I'm running and don't want to be disturbed. I'll catch you later.</string>
+    <string name="response_driving">I\'m driving right now. I\'ll get back to you when I arrive at my destination</string>
+    <string name="response_cycling">I\'m enjoying my bike ride at the moment, I\'ll get back to you later</string>
+    <string name="response_hiking">I\'m out for a stroll. I\'ll talk to you later.</string>
+    <string name="response_running">I\'m running and don\'t want to be disturbed. I\'ll catch you later.</string>
 
     <string-array name="activity_array">
         <item>Driving</item>
