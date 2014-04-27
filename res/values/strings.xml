@@ -20,5 +20,12 @@
         <item>Running</item>
         <item>Walking/Hiking</item>
     </string-array>
-    
+
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="settings_title">Settings</string>
+	<string name="driving_title">Driving Response</string>
+	<string name="biking_title">Cycling Response</string>
+	<string name="running_title">Running Response</string>
+	<string name="hiking_title">Hiking Response</string>
 </resources>

@@ -15,7 +15,8 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="15dp"
-        android:text="@string/start" />
+        android:text="@string/start"
+        android:onClick="startResponses" />
 
     <TextView
         android:id="@+id/textView1"
@@ -33,7 +34,8 @@
         android:layout_alignLeft="@+id/btnStart"
         android:layout_below="@+id/btnStart"
         android:layout_marginTop="16dp"
-        android:text="@string/stop" />
+        android:text="@string/stop"
+        android:onClick="stopResponses" />
 
     <Spinner
         android:id="@+id/spinner1"

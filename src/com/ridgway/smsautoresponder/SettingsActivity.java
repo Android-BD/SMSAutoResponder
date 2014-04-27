@@ -1,21 +1,22 @@
 package com.ridgway.smsautoresponder;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.os.Build;
 
-public class MainActivity extends ActionBarActivity {
+public class SettingsActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_settings);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -23,13 +24,6 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -38,35 +32,11 @@ public class MainActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			openSettings();
-			return true;
-		}
-		if (id == R.id.action_exit) {
-			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	/** In response to the Settings Menu Item **/
-	public void openSettings() {
-		// Open the settings panel
-		Intent intent = new Intent(this, SettingsActivity.class);
-		startActivity(intent);
-		
-	}
-	
-	/** Called when the user clicks the Start button */
-	public void startResponses(View view) {
-	    // Do something in response to button
-	}
-	
-	/** Called when the user clicks the Stop button */
-	public void stopResponses(View view) {
-	    // Do something in response to button
-	}
-	
-	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -78,8 +48,8 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
+			View rootView = inflater.inflate(R.layout.fragment_settings,
+					container, false);
 			return rootView;
 		}
 	}
