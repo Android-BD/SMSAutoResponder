@@ -1,18 +1,23 @@
 package com.ridgway.smsautoresponder;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.EditText;
 
 public class SettingsActivity extends ActionBarActivity {
 
+	String strDrive = "";
+	String strBike = "";
+	String strRun = "";
+	String strHike = "";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,6 +27,35 @@ public class SettingsActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+		SharedPreferences sharedPref = this.getSharedPreferences(
+		        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+		
+		String defaultDrive = getResources().getString(R.string.response_driving);
+		strDrive = sharedPref.getString(getString(R.string.saved_response_driving), defaultDrive);
+		
+		String defaultBike = getResources().getString(R.string.response_driving);
+		strBike = sharedPref.getString(getString(R.string.saved_response_biking), defaultBike);
+		
+		String defaultRun = getResources().getString(R.string.response_driving);
+		strRun = sharedPref.getString(getString(R.string.saved_response_running), defaultRun);
+		
+		String defaultHike = getResources().getString(R.string.response_driving);
+		strHike = sharedPref.getString(getString(R.string.saved_response_hiking), defaultHike);
+
+
+		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
+		editDrivingText.setText(strDrive);
+
+		EditText editBikingText = (EditText) findViewById(R.id.editBikingText);
+		editBikingText.setText(strBike);
+		
+		EditText editRunningText = (EditText) findViewById(R.id.editRunningText);
+		editRunningText.setText(strRun);
+		
+		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
+		editHikingText.setText(strHike);
+
 	}
 
 
@@ -48,6 +82,7 @@ public class SettingsActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			
 			View rootView = inflater.inflate(R.layout.fragment_settings,
 					container, false);
 			return rootView;
