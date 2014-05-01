@@ -2,3 +2,7 @@
 *.class
 *.dex
 *.apk
+
+bin/R.txt
+
+bin/resources.ap_
