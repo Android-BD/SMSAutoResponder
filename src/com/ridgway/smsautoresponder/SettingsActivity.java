@@ -73,24 +73,29 @@ public class SettingsActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
+	/** Called when the user clicks the Start button */
+	public void resetDefaults(View view) {
+	    // Do something in response to button
+	
+		String defaultDrive = getResources().getString(R.string.response_driving);
+		String defaultBike = getResources().getString(R.string.response_driving);
+		String defaultRun = getResources().getString(R.string.response_driving);
+		String defaultHike = getResources().getString(R.string.response_driving);
 
-	public static class PlaceholderFragment extends Fragment {
+		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
+		editDrivingText.setText(defaultDrive);
 
-		public PlaceholderFragment() {
-		}
+		EditText editBikingText = (EditText) findViewById(R.id.editBikingText);
+		editBikingText.setText(defaultBike);
+		
+		EditText editRunningText = (EditText) findViewById(R.id.editRunningText);
+		editRunningText.setText(defaultRun);
+		
+		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
+		editHikingText.setText(defaultHike);
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			
-			View rootView = inflater.inflate(R.layout.fragment_settings,
-					container, false);
-			
 
-			return rootView;
-		}
 	}
-	 */
+	
+	
 }

@@ -13,11 +13,12 @@
     <string name="response_cycling">I\'m enjoying my bike ride at the moment, I\'ll get back to you later</string>
     <string name="response_hiking">I\'m out for a stroll. I\'ll talk to you later.</string>
     <string name="response_running">I\'m running and don\'t want to be disturbed. I\'ll catch you later.</string>
-
+    <string name="default_activity">Running</string>
     <string name="saved_response_driving">drivingresponse</string>
     <string name="saved_response_biking">bikingresponse</string>
     <string name="saved_response_hiking">hikingresponse</string>
     <string name="saved_response_running">runningresponse</string>
+    <string name="saved_activity_option">activityoption</string>
     
     <string-array name="activity_array">
         <item>Driving</item>
@@ -34,4 +35,5 @@
 	<string name="running_title">Running Response</string>
 	<string name="hiking_title">Hiking Response</string>
 	<string name="preference_file_key">com.ridgway.smsautoresponder.PREFERENCE_FILE_KEY</string>
+
 </resources>
