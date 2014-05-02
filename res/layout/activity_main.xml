@@ -3,12 +3,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ridgway.smsautoresponder.MainActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:context="com.ridgway.smsautoresponder.MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -19,8 +18,6 @@
             android:id="@+id/textView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:text="@string/start_stop" />
     
@@ -28,8 +25,6 @@
 	        android:id="@+id/btnStart"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/textView1"
-	        android:layout_below="@+id/textView1"
 	        android:layout_marginTop="15dp"
 	        android:text="@string/start"
 	        android:onClick="startResponses" />
@@ -38,8 +33,6 @@
 	        android:id="@+id/btnStop"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/btnStart"
-	        android:layout_below="@+id/btnStart"
 	        android:layout_marginTop="16dp"
 	        android:text="@string/stop"
 	        android:onClick="stopResponses" />
@@ -48,8 +41,6 @@
             android:id="@+id/TextView01"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/spinner1"
-            android:layout_below="@+id/btnStop"
             android:layout_marginTop="31dp"
             android:text="@string/activity_prompt" />
         
@@ -57,12 +48,25 @@
 	        android:id="@+id/spinner1"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/btnStop"
-	        android:layout_below="@+id/TextView01"
 	        android:layout_marginTop="18dp"
 	        android:entries="@array/activity_array"
 	        android:prompt="@string/activity_prompt" />
-	
+
+        <TextView
+            android:id="@+id/TextViewResponse"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:text="@string/response_prompt" />
+        
+        <TextView
+            android:id="@+id/TextViewResponseDefault"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:text="@string/response_default" />
+        	    
+	    	
     </LinearLayout>
 
 </ScrollView>

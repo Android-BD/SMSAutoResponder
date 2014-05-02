@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 public class SettingsActivity extends ActionBarActivity {
 
+	public static final String PREFS_NAME = "SMS_SharedPrefs";
+
 	String strDrive = "";
 	String strBike = "";
 	String strRun = "";
@@ -23,15 +25,8 @@ public class SettingsActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 
-/*		PlaceholderFragment pf = new PlaceholderFragment();
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, pf).commit();
-		}
-*/
 		
-		SharedPreferences sharedPref = this.getSharedPreferences(
-		        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+		SharedPreferences sharedPref = this.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		
 		String defaultDrive = getResources().getString(R.string.response_driving);
 		strDrive = sharedPref.getString(getString(R.string.saved_response_driving), defaultDrive);
@@ -60,6 +55,46 @@ public class SettingsActivity extends ActionBarActivity {
 
 	}
 
+	@Override
+	protected void onPause(){
+        super.onPause();
+        savePrefs();
+	}
+
+	@Override
+	protected void onStop(){
+        super.onStop();
+        savePrefs();
+	}
+
+	private void savePrefs(){
+
+		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
+		String strDrive = editDrivingText.getText().toString();
+
+		EditText editBikingText = (EditText) findViewById(R.id.editBikingText);
+		String strBike = editBikingText.getText().toString();
+		
+		EditText editRunningText = (EditText) findViewById(R.id.editRunningText);
+		String strRun = editRunningText.getText().toString();
+		
+		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
+		String strHike = editHikingText.getText().toString();
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+
+
+        editor.putString(getString(R.string.saved_response_driving), strDrive);
+        editor.putString(getString(R.string.saved_response_biking), strBike);
+        editor.putString(getString(R.string.saved_response_running), strRun);
+        editor.putString(getString(R.string.saved_response_hiking), strHike);
+
+        
+        editor.apply();
+        editor.commit();        
+		
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,9 +113,9 @@ public class SettingsActivity extends ActionBarActivity {
 	    // Do something in response to button
 	
 		String defaultDrive = getResources().getString(R.string.response_driving);
-		String defaultBike = getResources().getString(R.string.response_driving);
-		String defaultRun = getResources().getString(R.string.response_driving);
-		String defaultHike = getResources().getString(R.string.response_driving);
+		String defaultBike = getResources().getString(R.string.response_cycling);
+		String defaultRun = getResources().getString(R.string.response_running);
+		String defaultHike = getResources().getString(R.string.response_hiking);
 
 		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
 		editDrivingText.setText(defaultDrive);
