@@ -12,29 +12,23 @@
         android:id="@+id/textViewDriveTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_below="@+id/textViewTitle"
         android:layout_marginTop="10dp"
         android:text="@string/driving_title" />
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_title" />
-
     <EditText
         android:id="@+id/editDrivingText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewDriveTitle"
-        android:layout_below="@+id/textViewDriveTitle"
+        android:layout_alignLeft="@id/textViewDriveTitle"
+        android:layout_below="@id/textViewDriveTitle"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine" >
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/editHikingText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewHikingTitle"
         android:layout_below="@+id/textViewHikingTitle"
@@ -43,19 +37,18 @@
 
     <EditText
         android:id="@+id/editRunningText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewRunningTitle"
         android:layout_below="@+id/textViewRunningTitle"
         android:ems="10"
         android:inputType="textMultiLine" >
 
-        <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/editBikingText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewBikingTitle"
         android:layout_below="@+id/textViewBikingTitle"

@@ -23,10 +23,12 @@ public class SettingsActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 
+/*		PlaceholderFragment pf = new PlaceholderFragment();
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, pf).commit();
 		}
+*/
 		
 		SharedPreferences sharedPref = this.getSharedPreferences(
 		        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -34,15 +36,14 @@ public class SettingsActivity extends ActionBarActivity {
 		String defaultDrive = getResources().getString(R.string.response_driving);
 		strDrive = sharedPref.getString(getString(R.string.saved_response_driving), defaultDrive);
 		
-		String defaultBike = getResources().getString(R.string.response_driving);
+		String defaultBike = getResources().getString(R.string.response_cycling);
 		strBike = sharedPref.getString(getString(R.string.saved_response_biking), defaultBike);
 		
-		String defaultRun = getResources().getString(R.string.response_driving);
+		String defaultRun = getResources().getString(R.string.response_running);
 		strRun = sharedPref.getString(getString(R.string.saved_response_running), defaultRun);
 		
-		String defaultHike = getResources().getString(R.string.response_driving);
+		String defaultHike = getResources().getString(R.string.response_hiking);
 		strHike = sharedPref.getString(getString(R.string.saved_response_hiking), defaultHike);
-
 
 		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
 		editDrivingText.setText(strDrive);
@@ -55,6 +56,7 @@ public class SettingsActivity extends ActionBarActivity {
 		
 		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
 		editHikingText.setText(strHike);
+
 
 	}
 
@@ -73,7 +75,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 	/**
 	 * A placeholder fragment containing a simple view.
-	 */
+
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -85,8 +87,10 @@ public class SettingsActivity extends ActionBarActivity {
 			
 			View rootView = inflater.inflate(R.layout.fragment_settings,
 					container, false);
+			
+
 			return rootView;
 		}
 	}
-
+	 */
 }
