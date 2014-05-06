@@ -261,6 +261,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		responsesSent = 0;
 		updateResponseCount();
+        createNotification();
 
     }
     
@@ -273,6 +274,7 @@ public class MainActivity extends ActionBarActivity {
     	}
 
     	ActivateButtons(false);
+    	
     }
     
     /**
@@ -293,11 +295,12 @@ public class MainActivity extends ActionBarActivity {
     
     private void createNotification(){
     	
-    	String strNotificationsSent = getResources().getString(R.string.notifications_sent) + String.valueOf(responsesSent);
+    	String strNotificationsSent = getResources().getString(R.string.notifications_sent) + " " + String.valueOf(responsesSent);
     	NotificationCompat.Builder mBuilder =
     	        new NotificationCompat.Builder(this)
     	        .setSmallIcon(R.drawable.ic_notification)
     	        .setContentTitle(getResources().getString(R.string.notification_title))
+    	        .setAutoCancel(true)
     	        .setContentText(strNotificationsSent);
     	
     	// Creates an explicit intent for an Activity in your app
