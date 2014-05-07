@@ -1,5 +1,6 @@
 package com.ridgway.smsautoresponder;
 
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -21,8 +22,16 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
+public class MainActivity extends ActionBarActivity {
+	
 	public static final String PREFS_NAME = "SMS_SharedPrefs";
 	
 	String strDrive = "";
@@ -34,7 +43,10 @@ public class MainActivity extends ActionBarActivity {
 	
 	int responsesSent = 0;
 	boolean receiverRegistered = false;
+	boolean googlePlayAvailable = false;
+	boolean googleDialogShown = false;
 	int mNotificationId = 42; // Responses Sent Notification Id
+	
 
 	IntentFilter intentFilter;
     private BroadcastReceiver intentReceiver = new BroadcastReceiver(){
@@ -103,12 +115,42 @@ public class MainActivity extends ActionBarActivity {
 		
 		updateResponseCount();
 
+	    // Look up the AdView as a resource and load a request.
+	    AdView adView = (AdView)this.findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder()
+								    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+								    .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // My Galaxy Nexus test phone
+								    .build();
+	    adView.loadAd(adRequest);
 	}
 
 	@Override
 	protected void onPause(){
         super.onPause();
         saveSpinner();
+	}
+
+	@Override
+	protected void onResume(){
+        super.onResume();
+
+    	googlePlayAvailable = false;
+
+    	Context context = getApplicationContext();
+        int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+        if (result == ConnectionResult.SUCCESS){
+        	googlePlayAvailable = true;
+        	googleDialogShown = false;
+        }
+        else{
+        	// we only want to show this dialog once per run.
+        	if (!googleDialogShown){
+	            int requestCode = 10;
+	            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(result, this, requestCode);
+	            dialog.show();
+	            googleDialogShown = true;
+        	}
+        }
 	}
 
 
