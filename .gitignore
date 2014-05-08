@@ -5,3 +5,11 @@
 bin/*
 
 .test.txt.swp
+
+bin/dexedLibs/appcompat_v7_2-86160f855e4fdc0cb896761ec9d49e49.jar
+
+bin/R.txt
+
+bin/resources.ap_
+
+gen/com/ridgway/smsautoresponder/R.java

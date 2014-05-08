@@ -1,11 +1,16 @@
 package com.ridgway.smsautoresponder;
 
+import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.view.Menu;
@@ -17,8 +22,16 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
+public class MainActivity extends ActionBarActivity {
+	
 	public static final String PREFS_NAME = "SMS_SharedPrefs";
 	
 	String strDrive = "";
@@ -29,8 +42,12 @@ public class MainActivity extends ActionBarActivity {
 	String strDefaultActivity = "";
 	String returnMessage = "";
 	
-	int responsesSent;
+	int responsesSent = 0;
 	boolean receiverRegistered = false;
+	boolean googlePlayAvailable = false;
+	boolean googleDialogShown = false;
+	int mNotificationId = 42; // Responses Sent Notification Id
+	
 
 	IntentFilter intentFilter;
     private BroadcastReceiver intentReceiver = new BroadcastReceiver(){
@@ -43,6 +60,8 @@ public class MainActivity extends ActionBarActivity {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(smsNumber, null, returnMessage, null, null);        
             responsesSent++;
+            
+            createNotification();
         }
     };
 
@@ -51,7 +70,6 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		responsesSent = 0;
 		SharedPreferences sharedPref = this.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		
 		String defaultDrive = getResources().getString(R.string.response_driving);
@@ -101,12 +119,42 @@ public class MainActivity extends ActionBarActivity {
 		
 		updateResponseCount();
 
+	    // Look up the AdView as a resource and load a request.
+	    AdView adView = (AdView)this.findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder()
+								    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+								    .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // My Galaxy Nexus test phone
+								    .build();
+	    adView.loadAd(adRequest);
 	}
 
 	@Override
 	protected void onPause(){
         super.onPause();
         saveSpinner();
+	}
+
+	@Override
+	protected void onResume(){
+        super.onResume();
+
+    	googlePlayAvailable = false;
+
+    	Context context = getApplicationContext();
+        int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+        if (result == ConnectionResult.SUCCESS){
+        	googlePlayAvailable = true;
+        	googleDialogShown = false;
+        }
+        else{
+        	// we only want to show this dialog once per run.
+        	if (!googleDialogShown){
+	            int requestCode = 10;
+	            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(result, this, requestCode);
+	            dialog.show();
+	            googleDialogShown = true;
+        	}
+        }
 	}
 
 
@@ -260,15 +308,11 @@ public class MainActivity extends ActionBarActivity {
         registerReceiver(intentReceiver, intentFilter);
         receiverRegistered = true;
 
-		Button btnStart = (Button) findViewById(R.id.btnStart);
-		Button btnStop = (Button) findViewById(R.id.btnStop);
-		
-		// Enable Stop button, disable Start button
-		btnStart.setEnabled(false);
-		btnStop.setEnabled(true);
+    	ActivateButtons(true);
 		
 		responsesSent = 0;
 		updateResponseCount();
+        createNotification();
 
     }
     
@@ -280,13 +324,64 @@ public class MainActivity extends ActionBarActivity {
     		receiverRegistered = false;
     	}
 
+    	ActivateButtons(false);
+    	
+    }
+    
+    /**
+     * Enable/Disable start/stop buttons
+     * 
+     * @param bStart
+     */
+    private void ActivateButtons(boolean bStart){
 		Button btnStart = (Button) findViewById(R.id.btnStart);
 		Button btnStop = (Button) findViewById(R.id.btnStop);
 		
 		// Enable Start button, disable Stop button
-		btnStart.setEnabled(true);
-		btnStop.setEnabled(false);
+		btnStart.setEnabled(!bStart);
+		btnStop.setEnabled(bStart);
     
+    	
+    }
+    
+    private void createNotification(){
+    	
+    	String strNotificationsSent = getResources().getString(R.string.notifications_sent) + " " + String.valueOf(responsesSent);
+    	NotificationCompat.Builder mBuilder =
+    	        new NotificationCompat.Builder(this)
+    	        .setSmallIcon(R.drawable.ic_notification)
+    	        .setContentTitle(getResources().getString(R.string.notification_title))
+    	        .setAutoCancel(true)
+    	        .setContentText(strNotificationsSent);
+    	
+    	// Creates an explicit intent for an Activity in your app
+    	Intent resultIntent = new Intent(this, MainActivity.class);
+
+    	// The stack builder object will contain an artificial back stack for the
+    	// started Activity.
+    	// This ensures that navigating backward from the Activity leads out of
+    	// your application to the Home screen.
+    	TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+    	
+    	// Adds the back stack for the Intent (but not the Intent itself)
+    	stackBuilder.addParentStack(MainActivity.class);
+    	
+    	// Adds the Intent that starts the Activity to the top of the stack
+    	stackBuilder.addNextIntent(resultIntent);
+    	
+    	PendingIntent resultPendingIntent =
+    	        stackBuilder.getPendingIntent(
+    	            0,
+    	            PendingIntent.FLAG_UPDATE_CURRENT
+    	        );
+    	mBuilder.setContentIntent(resultPendingIntent);
+    	
+    	NotificationManager mNotificationManager =
+    	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    	
+    	// mId allows you to update the notification later on.
+    	mNotificationManager.notify(mNotificationId, mBuilder.build());
+    	
     }
 
 }
