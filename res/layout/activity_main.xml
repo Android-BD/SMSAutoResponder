@@ -73,7 +73,7 @@
 		            android:id="@+id/TextView01"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
-		            android:layout_marginTop="5dp"
+		            android:layout_marginTop="10dp"
 		            android:text="@string/activity_prompt"
 		            android:textStyle="bold" />
 		        
@@ -89,7 +89,7 @@
 		            android:id="@+id/TextViewResponse"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
-		            android:layout_marginTop="5dp"
+		            android:layout_marginTop="10dp"
 		            android:text="@string/response_prompt"
 		            android:textStyle="bold" />
 		        
@@ -121,6 +121,7 @@
 		            android:id="@+id/TextViewResponseCountDisplay"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="5dp"
 		            android:text="@string/responses_sent_prompt" />
 	    	</LinearLayout>
 		        	        

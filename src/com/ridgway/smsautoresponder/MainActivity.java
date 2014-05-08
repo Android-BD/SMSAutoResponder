@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
 	
 	// Setup option for debugging or not
 	// This can be used to conditionalize some functionality
-	private boolean mDebug = true;
+	private boolean mDebug = false;
 	
 	// Setup member strings for main layout response
 	// display
@@ -67,12 +67,14 @@ public class MainActivity extends ActionBarActivity {
         public void onReceive(Context context, Intent intent) {
         	String smsNumber = intent.getExtras().getString("sms_number");
             
-        	// Return a response
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(smsNumber, null, returnMessage, null, null);        
-            responsesSent++;
-            
-            createNotification();
+        	if(smsNumber.length() > 6){
+	        	// Return a response if sms number isn't one of those special short numbers
+	            SmsManager smsManager = SmsManager.getDefault();
+	            smsManager.sendTextMessage(smsNumber, null, returnMessage, null, null);        
+	            responsesSent++;
+	            
+	            createNotification();
+        	}
         }
     };
 
