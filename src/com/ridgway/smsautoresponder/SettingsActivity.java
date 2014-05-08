@@ -19,6 +19,7 @@ public class SettingsActivity extends ActionBarActivity {
 	String strBike = "";
 	String strRun = "";
 	String strHike = "";
+	String strDisturb = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class SettingsActivity extends ActionBarActivity {
 		String defaultHike = getResources().getString(R.string.response_hiking);
 		strHike = sharedPref.getString(getString(R.string.saved_response_hiking), defaultHike);
 
+		String defaultDisturb = getResources().getString(R.string.response_donot_disturb);
+		strDisturb = sharedPref.getString(getString(R.string.saved_response_donotdisturb), defaultDisturb);
+
 		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
 		editDrivingText.setText(strDrive);
 
@@ -51,6 +55,9 @@ public class SettingsActivity extends ActionBarActivity {
 		
 		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
 		editHikingText.setText(strHike);
+
+		EditText editDisturbText = (EditText) findViewById(R.id.editDisturbText);
+		editDisturbText.setText(strDisturb);
 
 
 	}
@@ -81,6 +88,9 @@ public class SettingsActivity extends ActionBarActivity {
 		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
 		String strHike = editHikingText.getText().toString();
 
+		EditText editDisturbText = (EditText) findViewById(R.id.editDisturbText);
+		String strDisturb = editDisturbText.getText().toString();
+
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
 
@@ -89,6 +99,7 @@ public class SettingsActivity extends ActionBarActivity {
         editor.putString(getString(R.string.saved_response_biking), strBike);
         editor.putString(getString(R.string.saved_response_running), strRun);
         editor.putString(getString(R.string.saved_response_hiking), strHike);
+        editor.putString(getString(R.string.saved_response_donotdisturb), strDisturb);
 
         
         editor.apply();
@@ -116,6 +127,7 @@ public class SettingsActivity extends ActionBarActivity {
 		String defaultBike = getResources().getString(R.string.response_cycling);
 		String defaultRun = getResources().getString(R.string.response_running);
 		String defaultHike = getResources().getString(R.string.response_hiking);
+		String defaultDisturb = getResources().getString(R.string.response_donot_disturb);
 
 		EditText editDrivingText = (EditText) findViewById(R.id.editDrivingText);
 		editDrivingText.setText(defaultDrive);
@@ -129,6 +141,8 @@ public class SettingsActivity extends ActionBarActivity {
 		EditText editHikingText = (EditText) findViewById(R.id.editHikingText);
 		editHikingText.setText(defaultHike);
 
+		EditText editDisturbText = (EditText) findViewById(R.id.editDisturbText);
+		editDisturbText.setText(defaultDisturb);
 
 	}
 	

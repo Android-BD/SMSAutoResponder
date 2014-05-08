@@ -33,11 +33,9 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10"
-	        android:inputType="textMultiLine" >
-	
-	        <requestFocus />
-	    </EditText>
-	
+	        android:hint="@string/response_hint"
+	        android:inputType="textMultiLine" />
+
 	    <TextView
 	        android:id="@+id/textViewHikingTitle"
 	        android:layout_width="wrap_content"
@@ -50,6 +48,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10"
+	        android:hint="@string/response_hint"
 	        android:inputType="textMultiLine" />
 	
 	    <TextView
@@ -64,6 +63,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10"
+	        android:hint="@string/response_hint"
 	        android:inputType="textMultiLine" >
 	    </EditText>
 	
@@ -79,6 +79,22 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10"
+	        android:hint="@string/response_hint"
+	        android:inputType="textMultiLine" />
+	
+	    <TextView
+	        android:id="@+id/textViewDisturbTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="12dp"
+	        android:text="@string/donot_disturb_title" />
+	
+	    <EditText
+	        android:id="@+id/editDisturbText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:hint="@string/response_hint"
 	        android:inputType="textMultiLine" />
 	
 	    <Button

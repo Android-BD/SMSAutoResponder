@@ -21,8 +21,8 @@ public class AutoSMSReceiver extends BroadcastReceiver {
 	
 		    String sender = shortMessage.getOriginatingAddress();
 		    String msg = shortMessage.getDisplayMessageBody();
-		    Log.d("SMSReceiver","SMS message sender: "+ sender);
-		    Log.d("SMSReceiver","SMS message text: "+ msg );
+		    //Log.d("SMSReceiver","SMS message sender: "+ sender);
+		    //Log.d("SMSReceiver","SMS message text: "+ msg );
 		    
 		    //---send a broadcast intent to update the SMS received in the activity---
 		    Intent broadcastIntent = new Intent();

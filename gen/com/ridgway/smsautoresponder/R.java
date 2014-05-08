@@ -956,6 +956,9 @@ containing a value of this type.
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
+ Default screen margins, per the Android Design guidelines. 
+ Default screen margins, per the Android Design guidelines. 
+ Default screen margins, per the Android Design guidelines. 
          */
         public static final int activity_horizontal_margin=0x7f080015;
         public static final int activity_vertical_margin=0x7f080016;
@@ -1097,17 +1100,17 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050023;
         public static final int action_bar_title=0x7f050022;
         public static final int action_context_bar=0x7f05001d;
-        public static final int action_exit=0x7f050051;
+        public static final int action_exit=0x7f050053;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050050;
+        public static final int action_settings=0x7f050052;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
         public static final int btnStart=0x7f05003e;
         public static final int btnStop=0x7f05003f;
-        public static final int button1=0x7f05004f;
+        public static final int button1=0x7f050051;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
         public static final int container=0x7f05003c;
@@ -1116,6 +1119,7 @@ containing a value of this type.
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
         public static final int editBikingText=0x7f05004e;
+        public static final int editDisturbText=0x7f050050;
         public static final int editDrivingText=0x7f050048;
         public static final int editHikingText=0x7f05004a;
         public static final int editRunningText=0x7f05004c;
@@ -1157,6 +1161,7 @@ containing a value of this type.
         public static final int tabMode=0x7f050002;
         public static final int textView1=0x7f05003d;
         public static final int textViewBikingTitle=0x7f05004d;
+        public static final int textViewDisturbTitle=0x7f05004f;
         public static final int textViewDriveTitle=0x7f050047;
         public static final int textViewHikingTitle=0x7f050049;
         public static final int textViewRunningTitle=0x7f05004b;
@@ -1274,30 +1279,31 @@ containing a value of this type.
         public static final int activity_prompt=0x7f0a0013;
         public static final int activity_running=0x7f0a0027;
         public static final int app_name=0x7f0a000d;
-        public static final int biking_title=0x7f0a002d;
+        public static final int biking_title=0x7f0a002e;
         public static final int default_activity=0x7f0a001b;
-        public static final int donot_disturb_title=0x7f0a0030;
-        public static final int driving_title=0x7f0a002c;
+        public static final int donot_disturb_title=0x7f0a0031;
+        public static final int driving_title=0x7f0a002d;
         public static final int hello_world=0x7f0a000e;
-        public static final int hiking_title=0x7f0a002f;
-        public static final int preference_file_key=0x7f0a0031;
+        public static final int hiking_title=0x7f0a0030;
+        public static final int preference_file_key=0x7f0a0032;
         public static final int reset_defaults=0x7f0a0022;
         public static final int response_cycling=0x7f0a0017;
         public static final int response_default=0x7f0a0023;
-        public static final int response_donot_disturn=0x7f0a001a;
+        public static final int response_donot_disturb=0x7f0a001a;
         public static final int response_driving=0x7f0a0016;
         public static final int response_hiking=0x7f0a0018;
+        public static final int response_hint=0x7f0a002b;
         public static final int response_prompt=0x7f0a0014;
         public static final int response_running=0x7f0a0019;
         public static final int responses_sent_prompt=0x7f0a0024;
-        public static final int running_title=0x7f0a002e;
+        public static final int running_title=0x7f0a002f;
         public static final int saved_activity_option=0x7f0a0021;
         public static final int saved_response_biking=0x7f0a001d;
         public static final int saved_response_donotdisturb=0x7f0a0020;
         public static final int saved_response_driving=0x7f0a001c;
         public static final int saved_response_hiking=0x7f0a001e;
         public static final int saved_response_running=0x7f0a001f;
-        public static final int settings_title=0x7f0a002b;
+        public static final int settings_title=0x7f0a002c;
         public static final int start=0x7f0a0010;
         public static final int start_stop=0x7f0a000f;
         public static final int stop=0x7f0a0011;
@@ -1324,9 +1330,42 @@ containing a value of this type.
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
          */
         public static final int AppBaseTheme=0x7f0b008b;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0b008c;

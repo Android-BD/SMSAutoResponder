@@ -25,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
 	String strBike = "";
 	String strRun = "";
 	String strHike = "";
+	String strDisturb = "";
 	String strDefaultActivity = "";
 	String returnMessage = "";
 	
@@ -64,6 +65,9 @@ public class MainActivity extends ActionBarActivity {
 		
 		String defaultHike = getResources().getString(R.string.response_hiking);
 		strHike = sharedPref.getString(getString(R.string.saved_response_hiking), defaultHike);
+
+		String defaultDisturb = getResources().getString(R.string.response_donot_disturb);
+		strDisturb = sharedPref.getString(getString(R.string.saved_response_donotdisturb), defaultDisturb);
 
 		String defaultActivity = getResources().getString(R.string.default_activity);
 		strDefaultActivity = sharedPref.getString(getString(R.string.saved_activity_option), defaultActivity);
@@ -132,6 +136,7 @@ public class MainActivity extends ActionBarActivity {
 		String strActBike = getResources().getString(R.string.activity_cycling);
 		String strActRun = getResources().getString(R.string.activity_running);
 		String strActHike = getResources().getString(R.string.activity_hiking);
+		String strActDisturb = getResources().getString(R.string.activity_donotdisturb);
 			
         // Get the selected value from the spinner
 		Spinner spinActivity = (Spinner) findViewById(R.id.spinner1);
@@ -154,6 +159,10 @@ public class MainActivity extends ActionBarActivity {
 		else if (selectedActivity.compareToIgnoreCase(strActDrive) == 0 ){
 			responseText.setText(strDrive);
 			returnMessage = strDrive;
+		}
+		else if (selectedActivity.compareToIgnoreCase(strActDisturb) == 0 ){
+			responseText.setText(strDisturb);
+			returnMessage = strDisturb;
 		}
 		else{
 			responseText.setText("");
