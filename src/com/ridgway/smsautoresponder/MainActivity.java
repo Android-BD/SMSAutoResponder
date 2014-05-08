@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdRequest.Builder;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -33,7 +34,14 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 public class MainActivity extends ActionBarActivity {
 	
 	public static final String PREFS_NAME = "SMS_SharedPrefs";
+	private static final int mNotificationId = 42; // Responses Sent Notification Id
 	
+	// Setup option for debugging or not
+	// This can be used to conditionalize some functionality
+	private boolean mDebug = true;
+	
+	// Setup member strings for main layout response
+	// display
 	String strDrive = "";
 	String strBike = "";
 	String strRun = "";
@@ -46,9 +54,12 @@ public class MainActivity extends ActionBarActivity {
 	boolean receiverRegistered = false;
 	boolean googlePlayAvailable = false;
 	boolean googleDialogShown = false;
-	int mNotificationId = 42; // Responses Sent Notification Id
+	boolean mStart = false;
 	
 
+	/**
+	 * Setup Broadcast Receiver for incoming SMS Messages
+	 */
 	IntentFilter intentFilter;
     private BroadcastReceiver intentReceiver = new BroadcastReceiver(){
 
@@ -65,11 +76,18 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
+    /**
+     * 
+     * All of the override functions 
+     * 
+     * 
+     */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		// If we have previously saved preferences, then take those strings and use them
 		SharedPreferences sharedPref = this.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		
 		String defaultDrive = getResources().getString(R.string.response_driving);
@@ -110,21 +128,18 @@ public class MainActivity extends ActionBarActivity {
 		intentFilter = new IntentFilter();
 		intentFilter.addAction("SMS_RECEIVED_ACTION");
 		
-		Button btnStart = (Button) findViewById(R.id.btnStart);
-		Button btnStop = (Button) findViewById(R.id.btnStop);
-		
-		// Enable Start button, disable Stop button
-		btnStart.setEnabled(true);
-		btnStop.setEnabled(false);
-		
+		ActivateButtons(receiverRegistered);		
 		updateResponseCount();
 
 	    // Look up the AdView as a resource and load a request.
 	    AdView adView = (AdView)this.findViewById(R.id.adView);
-	    AdRequest adRequest = new AdRequest.Builder()
-								    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
-								    .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // My Galaxy Nexus test phone
-								    .build();
+	    Builder adBuilder = new AdRequest.Builder();
+	    
+	    if(mDebug){
+	    	adBuilder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);       // Emulator
+		    adBuilder.addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4"); // My Galaxy Nexus Virtual Device
+	    }
+	    AdRequest adRequest = adBuilder.build();
 	    adView.loadAd(adRequest);
 	}
 
@@ -147,13 +162,9 @@ public class MainActivity extends ActionBarActivity {
         	googleDialogShown = false;
         }
         else{
-        	// we only want to show this dialog once per run.
-        	if (!googleDialogShown){
-	            int requestCode = 10;
-	            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(result, this, requestCode);
-	            dialog.show();
-	            googleDialogShown = true;
-        	}
+            int requestCode = 10;
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(result, this, requestCode);
+            dialog.show();
         }
 	}
 
@@ -174,6 +185,38 @@ public class MainActivity extends ActionBarActivity {
         }
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			openSettings();
+			return true;
+		}
+		if (id == R.id.action_exit) {
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * 
+	 * All the private class methods & callback methods
+	 * 
+	 * 
+	 */
+	
 	
 	/**
 	 * Update the response text based on the spinner selection
@@ -223,8 +266,14 @@ public class MainActivity extends ActionBarActivity {
 	 * Show the count of recent responses
 	 */
 	private void updateResponseCount(){
+		// Update the response count in the UI only for Debug setups.
+		// Hide otherwise. Response count shows in Notifications.
 		TextView txtCount = (TextView) findViewById(R.id.TextViewResponseCountDisplay);
-		txtCount.setText(String.valueOf(responsesSent));
+		txtCount.setText(String.valueOf(responsesSent));		
+		txtCount.setVisibility(mDebug ? View.VISIBLE : View.INVISIBLE);
+		
+		TextView txtResponseCountTitle = (TextView) findViewById(R.id.TextViewResponseCountTitle);
+		txtResponseCountTitle.setVisibility(mDebug ? View.VISIBLE : View.INVISIBLE);
 	}
 	
 	/**
@@ -259,31 +308,6 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			openSettings();
-			return true;
-		}
-		if (id == R.id.action_exit) {
-			finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	/** In response to the Settings Menu Item **/
 	public void openSettings() {
 		// Open the settings panel
@@ -308,7 +332,7 @@ public class MainActivity extends ActionBarActivity {
         registerReceiver(intentReceiver, intentFilter);
         receiverRegistered = true;
 
-    	ActivateButtons(true);
+    	ActivateButtons(receiverRegistered);
 		
 		responsesSent = 0;
 		updateResponseCount();
@@ -324,7 +348,7 @@ public class MainActivity extends ActionBarActivity {
     		receiverRegistered = false;
     	}
 
-    	ActivateButtons(false);
+    	ActivateButtons(receiverRegistered);
     	
     }
     
@@ -334,6 +358,9 @@ public class MainActivity extends ActionBarActivity {
      * @param bStart
      */
     private void ActivateButtons(boolean bStart){
+    	
+    	mStart = bStart;
+    	
 		Button btnStart = (Button) findViewById(R.id.btnStart);
 		Button btnStop = (Button) findViewById(R.id.btnStop);
 		
