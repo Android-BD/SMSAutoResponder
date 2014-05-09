@@ -26,9 +26,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
 public class MainActivity extends ActionBarActivity {
 	
@@ -123,7 +120,7 @@ public class MainActivity extends ActionBarActivity {
 	    AdView adView = (AdView)this.findViewById(R.id.adView);
 	    AdRequest adRequest = new AdRequest.Builder()
 								    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
-								    .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // My Galaxy Nexus test phone
+								    .addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB") // My Galaxy Nexus test phone
 								    .build();
 	    adView.loadAd(adRequest);
 	}
