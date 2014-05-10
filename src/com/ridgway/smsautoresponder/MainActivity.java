@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdRequest.Builder;
@@ -36,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
 	// Setup option for debugging or not
 	// This can be used to conditionalize some functionality
 	private boolean mDebug = false;
+	private boolean mFreeVersion = true;
 	
 	// Setup member strings for main layout response
 	// display
@@ -52,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
 	boolean googlePlayAvailable = false;
 	boolean googleDialogShown = false;
 	boolean mStart = false;
+	Toast toastResponse = null;
 	
 
 	/**
@@ -64,13 +68,19 @@ public class MainActivity extends ActionBarActivity {
         public void onReceive(Context context, Intent intent) {
         	String smsNumber = intent.getExtras().getString("sms_number");
             
+        	String msg = returnMessage;
+        	if(mFreeVersion){
+        		msg = returnMessage + getString(R.string.response_sentby);
+        	}
+        	
         	if(smsNumber.length() > 6){
 	        	// Return a response if sms number isn't one of those special short numbers
 	            SmsManager smsManager = SmsManager.getDefault();
-	            smsManager.sendTextMessage(smsNumber, null, returnMessage, null, null);        
+	            smsManager.sendTextMessage(smsNumber, null, msg, null, null);        
 	            responsesSent++;
 	            
 	            createNotification();
+	            toastResponse.show();
         	}
         }
     };
@@ -88,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		// If we have previously saved preferences, then take those strings and use them
 		SharedPreferences sharedPref = this.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		
+
 		String defaultDrive = getResources().getString(R.string.response_driving);
 		strDrive = sharedPref.getString(getString(R.string.saved_response_driving), defaultDrive);
 		
@@ -140,6 +150,25 @@ public class MainActivity extends ActionBarActivity {
 	    }
 	    AdRequest adRequest = adBuilder.build();
 	    adView.loadAd(adRequest);
+	    
+	    // Create toast message
+	    Context context = getApplicationContext();
+	    CharSequence text = getResources().getString(R.string.response_toast);
+	    int duration = Toast.LENGTH_SHORT;
+	    toastResponse = Toast.makeText(context, text, duration);
+	    toastResponse.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+
+	    // Get response count and start flag
+		responsesSent = sharedPref.getInt(getString(R.string.saved_response_count), 0);
+		mStart = sharedPref.getBoolean(getString(R.string.saved_response_start), false);
+
+		if(mDebug){
+		    // Create toast message
+		    CharSequence txt = "receiverRegistered: " + receiverRegistered + " mStart: " + mStart
+		    			+ " responsesSent: " + responsesSent;
+		    showDebugToast(txt);
+		}
+
 	}
 
 	@Override
@@ -165,9 +194,31 @@ public class MainActivity extends ActionBarActivity {
             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(result, this, requestCode);
             dialog.show();
         }
+        
+		if(mStart){
+			startResponses();
+		}
+
+		if(mDebug){
+		    // Create toast message
+		    CharSequence txt = "receiverRegistered: " + receiverRegistered + " mStart: " + mStart
+		    			+ " responsesSent: " + responsesSent;
+		    showDebugToast(txt);
+		}
+
 	}
 
 
+	public void showDebugToast(CharSequence txt){
+		
+	    Context context = getApplicationContext();
+	    int dur = Toast.LENGTH_LONG;
+	    Toast toastDebug = Toast.makeText(context, txt, dur);
+	    toastDebug.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+	    toastDebug.show();
+	}
+	
+	
 	@Override
 	protected void onStop(){
         super.onStop();
@@ -177,11 +228,6 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onDestroy(){
         super.onDestroy();
-        //---unregister the receiver---  
-        if (receiverRegistered){
-	    	unregisterReceiver(intentReceiver);   
-	    	receiverRegistered = false;
-        }
 	}
 
 	@Override
@@ -203,6 +249,22 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		if (id == R.id.action_exit) {
+			// cancel the start
+			mStart = false;
+			
+	        //---unregister the receiver---  
+	        if (receiverRegistered){
+		    	unregisterReceiver(intentReceiver);   
+		    	receiverRegistered = false;
+	        }
+	        
+	        // Cancel the notifications
+	    	NotificationManager mNotificationManager =
+	        	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+	    	mNotificationManager.cancelAll();
+	    	
+	    	// now exit the application and unload from memory
 			finish();
 			return true;
 		}
@@ -291,6 +353,15 @@ public class MainActivity extends ActionBarActivity {
 		// Save the option in the preferences
 		String option = getString(R.string.saved_activity_option);
         editor.putString(option, selectedActivity);
+        
+        // Save the start setting in the preferences
+        String savedResponseKey = getString(R.string.saved_response_start);
+        editor.putBoolean(savedResponseKey, mStart);
+
+        // Save the response count in the preferences
+        String savedCountKey = getString(R.string.saved_response_count);
+        editor.putInt(savedCountKey, responsesSent);
+        
         editor.apply();
         editor.commit();
 		
@@ -327,13 +398,17 @@ public class MainActivity extends ActionBarActivity {
 	
     /** Called when the user clicks the Start button */
     public void startResponses(View view) {
+		responsesSent = 0;
+    	startResponses();
+    }
+    
+    private void startResponses(){
         //---register the receiver---
         registerReceiver(intentReceiver, intentFilter);
         receiverRegistered = true;
 
     	ActivateButtons(receiverRegistered);
 		
-		responsesSent = 0;
 		updateResponseCount();
         createNotification();
 
@@ -378,6 +453,7 @@ public class MainActivity extends ActionBarActivity {
     	        .setSmallIcon(R.drawable.ic_notification)
     	        .setContentTitle(getResources().getString(R.string.notification_title))
     	        .setAutoCancel(true)
+    	        .setTicker(strNotificationsSent)
     	        .setContentText(strNotificationsSent);
     	
     	// Creates an explicit intent for an Activity in your app

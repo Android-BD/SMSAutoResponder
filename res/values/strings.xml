@@ -24,13 +24,17 @@
     <string name="saved_response_running">runningresponse</string>
     <string name="saved_response_donotdisturb">donotdisturbresponse</string>
     <string name="saved_activity_option">activityoption</string>
+    <string name="saved_response_start">responsestart</string>
+    <string name="saved_response_count">responsecount</string>
+    
     <string name="reset_defaults">Reset Defaults</string>
     <string name="response_default">Response</string>    
     <string name="responses_sent_prompt">Responses Sent:</string>
+    <string name="response_toast">Response Sent</string>
     
     <string name="notification_title">SMS Auto Responder</string>
     <string name="notifications_sent">@string/responses_sent_prompt</string>
-    
+    <string name="response_sentby"> -- Sent with SMSAutoResponder</string>
     
     <string name="activity_driving">Driving</string>
     <string name="activity_cycling">Cycling</string>
