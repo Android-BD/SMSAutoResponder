@@ -1161,6 +1161,7 @@ containing a value of this type.
          (the screen is in portrait). This may be either a fraction or a dimension.
          */
         public static final int dialog_fixed_width_minor=0x7f0a0012;
+        public static final int text_size_label=0x7f0a0017;
     }
     public static final class drawable {
         public static final int ab_background_textured_smsautoresponder=0x7f020000;
@@ -1315,12 +1316,12 @@ containing a value of this type.
         public static final int tab_unselected_smsautoresponder=0x7f020095;
     }
     public static final class id {
-        public static final int ScrollView1=0x7f06004b;
-        public static final int TextView01=0x7f060044;
-        public static final int TextViewResponse=0x7f060046;
-        public static final int TextViewResponseCountDisplay=0x7f060049;
-        public static final int TextViewResponseCountTitle=0x7f060048;
-        public static final int TextViewResponseDefault=0x7f060047;
+        public static final int ScrollView1=0x7f06004c;
+        public static final int TextView01=0x7f060045;
+        public static final int TextViewResponse=0x7f060047;
+        public static final int TextViewResponseCountDisplay=0x7f06004a;
+        public static final int TextViewResponseCountTitle=0x7f060049;
+        public static final int TextViewResponseDefault=0x7f060048;
         public static final int action_bar=0x7f06001f;
         public static final int action_bar_activity_content=0x7f060018;
         public static final int action_bar_container=0x7f06001e;
@@ -1328,20 +1329,21 @@ containing a value of this type.
         public static final int action_bar_root=0x7f06001d;
         public static final int action_bar_subtitle=0x7f060026;
         public static final int action_bar_title=0x7f060025;
+        public static final int action_configuration=0x7f060058;
         public static final int action_context_bar=0x7f060020;
-        public static final int action_exit=0x7f060058;
+        public static final int action_exit=0x7f06005a;
         public static final int action_menu_divider=0x7f060019;
         public static final int action_menu_presenter=0x7f06001a;
         public static final int action_mode_close_button=0x7f060027;
-        public static final int action_settings=0x7f060057;
+        public static final int action_settings=0x7f060059;
         public static final int activity_chooser_view_content=0x7f060028;
-        public static final int adView=0x7f06004a;
+        public static final int adView=0x7f06004b;
         public static final int always=0x7f06000f;
         public static final int beginning=0x7f060014;
-        public static final int btnStart=0x7f060042;
-        public static final int btnStop=0x7f060043;
-        public static final int button1=0x7f060056;
-        public static final int buttonArea=0x7f060041;
+        public static final int btnStart=0x7f060043;
+        public static final int btnStop=0x7f060044;
+        public static final int button1=0x7f060057;
+        public static final int buttonArea=0x7f060042;
         public static final int checkbox=0x7f060030;
         public static final int collapseActionView=0x7f060011;
         public static final int container=0x7f06003f;
@@ -1349,11 +1351,11 @@ containing a value of this type.
         public static final int dialog=0x7f060012;
         public static final int disableHome=0x7f06000c;
         public static final int dropdown=0x7f060013;
-        public static final int editBikingText=0x7f060053;
-        public static final int editDisturbText=0x7f060055;
-        public static final int editDrivingText=0x7f06004d;
-        public static final int editHikingText=0x7f06004f;
-        public static final int editRunningText=0x7f060051;
+        public static final int editBikingText=0x7f060054;
+        public static final int editDisturbText=0x7f060056;
+        public static final int editDrivingText=0x7f06004e;
+        public static final int editHikingText=0x7f060050;
+        public static final int editRunningText=0x7f060052;
         public static final int edit_query=0x7f060033;
         public static final int end=0x7f060016;
         public static final int expand_activities_button=0x7f060029;
@@ -1388,18 +1390,19 @@ containing a value of this type.
         public static final int showCustom=0x7f06000b;
         public static final int showHome=0x7f060008;
         public static final int showTitle=0x7f06000a;
-        public static final int spinner1=0x7f060045;
+        public static final int spinner1=0x7f060046;
         public static final int split_action_bar=0x7f060021;
         public static final int submit_area=0x7f06003c;
         public static final int tabMode=0x7f060006;
         public static final int terrain=0x7f060003;
-        public static final int textView1=0x7f060040;
-        public static final int textViewBikingTitle=0x7f060052;
-        public static final int textViewDisturbTitle=0x7f060054;
-        public static final int textViewDriveTitle=0x7f06004c;
-        public static final int textViewHikingTitle=0x7f06004e;
-        public static final int textViewRunningTitle=0x7f060050;
+        public static final int textView1=0x7f060041;
+        public static final int textViewBikingTitle=0x7f060053;
+        public static final int textViewDisturbTitle=0x7f060055;
+        public static final int textViewDriveTitle=0x7f06004d;
+        public static final int textViewHikingTitle=0x7f06004f;
+        public static final int textViewRunningTitle=0x7f060051;
         public static final int title=0x7f06002e;
+        public static final int toggleEnable=0x7f060040;
         public static final int top_action_bar=0x7f060023;
         public static final int up=0x7f060024;
         public static final int useLogo=0x7f060007;
@@ -1505,14 +1508,17 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f070026;
-        public static final int action_exit=0x7f07002d;
-        public static final int action_settings=0x7f070030;
-        public static final int activity_cycling=0x7f070047;
-        public static final int activity_donotdisturb=0x7f07004a;
-        public static final int activity_driving=0x7f070046;
-        public static final int activity_hiking=0x7f070049;
-        public static final int activity_prompt=0x7f07002e;
-        public static final int activity_running=0x7f070048;
+        public static final int acknowledgeexit_msg=0x7f070044;
+        public static final int acknowledgeexit_title=0x7f070043;
+        public static final int action_configuration=0x7f070030;
+        public static final int action_exit=0x7f07002c;
+        public static final int action_settings=0x7f07002f;
+        public static final int activity_cycling=0x7f07004b;
+        public static final int activity_donotdisturb=0x7f07004e;
+        public static final int activity_driving=0x7f07004a;
+        public static final int activity_hiking=0x7f07004d;
+        public static final int activity_prompt=0x7f07002d;
+        public static final int activity_running=0x7f07004c;
         public static final int app_name=0x7f070028;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1537,7 +1543,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f070014;
-        public static final int biking_title=0x7f07004f;
+        public static final int biking_title=0x7f070054;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -1609,30 +1615,33 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f070013;
+        public static final int configuration_title=0x7f070052;
         public static final int default_activity=0x7f070036;
-        public static final int donot_disturb_title=0x7f070052;
-        public static final int driving_title=0x7f07004e;
-        public static final int hello_world=0x7f070029;
-        public static final int hiking_title=0x7f070051;
+        public static final int dlg_cancel=0x7f070046;
+        public static final int dlg_yes=0x7f070045;
+        public static final int donot_disturb_title=0x7f070057;
+        public static final int driving_title=0x7f070053;
+        public static final int hello_world=0x7f070059;
+        public static final int hiking_title=0x7f070056;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f07001a;
-        public static final int notification_title=0x7f070043;
-        public static final int notifications_sent=0x7f070044;
-        public static final int preference_file_key=0x7f070053;
+        public static final int notification_title=0x7f070047;
+        public static final int notifications_sent=0x7f070048;
+        public static final int preference_file_key=0x7f070058;
         public static final int reset_defaults=0x7f07003f;
         public static final int response_cycling=0x7f070032;
         public static final int response_default=0x7f070040;
         public static final int response_donot_disturb=0x7f070035;
         public static final int response_driving=0x7f070031;
         public static final int response_hiking=0x7f070033;
-        public static final int response_hint=0x7f07004c;
-        public static final int response_prompt=0x7f07002f;
+        public static final int response_hint=0x7f070050;
+        public static final int response_prompt=0x7f07002e;
         public static final int response_running=0x7f070034;
-        public static final int response_sentby=0x7f070045;
+        public static final int response_sentby=0x7f070049;
         public static final int response_toast=0x7f070042;
         public static final int responses_sent_prompt=0x7f070041;
-        public static final int running_title=0x7f070050;
+        public static final int running_title=0x7f070055;
         public static final int saved_activity_option=0x7f07003c;
         public static final int saved_response_biking=0x7f070038;
         public static final int saved_response_count=0x7f07003e;
@@ -1641,11 +1650,11 @@ containing a value of this type.
         public static final int saved_response_hiking=0x7f070039;
         public static final int saved_response_running=0x7f07003a;
         public static final int saved_response_start=0x7f07003d;
-        public static final int settings_title=0x7f07004d;
-        public static final int start=0x7f07002b;
-        public static final int start_stop=0x7f07002a;
-        public static final int stop=0x7f07002c;
-        public static final int title_activity_settings=0x7f07004b;
+        public static final int settings_title=0x7f070051;
+        public static final int start=0x7f07002a;
+        public static final int start_stop=0x7f070029;
+        public static final int stop=0x7f07002b;
+        public static final int title_activity_settings=0x7f07004f;
     }
     public static final class style {
         public static final int ActionBar_Solid_Smsautoresponder=0x7f0b008e;

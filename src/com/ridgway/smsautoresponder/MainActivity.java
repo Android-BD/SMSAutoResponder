@@ -1,10 +1,13 @@
 package com.ridgway.smsautoresponder;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -248,10 +251,28 @@ public class MainActivity extends ActionBarActivity {
 			openSettings();
 			return true;
 		}
+		if (id == R.id.action_configuration) {
+			openConfiguration();
+			return true;
+		}
 		if (id == R.id.action_exit) {
-			stopReciever();
-	    	// now exit the application and unload from memory
-			finish();
+			new AlertDialog.Builder(this)
+	    	.setTitle(R.string.acknowledgeexit_title )
+	    	.setMessage(R.string.acknowledgeexit_msg)
+	    	.setPositiveButton(R.string.dlg_yes, new OnClickListener() {
+		    	public void onClick(DialogInterface arg0, int arg1) {
+		    		//do stuff onclick of YES
+					stopReciever();
+					// now exit the application and unload from memory
+					finish();
+		    	}
+		    })
+	    	.setNegativeButton(R.string.dlg_cancel, new OnClickListener() {
+		    	public void onClick(DialogInterface arg0, int arg1) {
+			    	//do nothing onclick of CANCEL
+		    	}
+	    	}).show();
+			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -383,6 +404,12 @@ public class MainActivity extends ActionBarActivity {
 	
 	/** In response to the Settings Menu Item **/
 	public void openSettings() {
+		// Open the settings panel
+		//Intent intent = new Intent(this, SettingsActivity.class);
+		//startActivity(intent);
+	}
+	
+	public void openConfiguration() {
 		// Open the settings panel
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
