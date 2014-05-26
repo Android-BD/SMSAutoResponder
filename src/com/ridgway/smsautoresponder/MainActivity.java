@@ -249,21 +249,7 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		if (id == R.id.action_exit) {
-			// cancel the start
-			mStart = false;
-			
-	        //---unregister the receiver---  
-	        if (receiverRegistered){
-		    	unregisterReceiver(intentReceiver);   
-		    	receiverRegistered = false;
-	        }
-	        
-	        // Cancel the notifications
-	    	NotificationManager mNotificationManager =
-	        	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-	    	mNotificationManager.cancelAll();
-	    	
+			stopReciever();
 	    	// now exit the application and unload from memory
 			finish();
 			return true;
@@ -278,6 +264,23 @@ public class MainActivity extends ActionBarActivity {
 	 * 
 	 */
 	
+	private void stopReciever(){
+		// cancel the start
+		mStart = false;
+		
+        //---unregister the receiver---  
+        if (receiverRegistered){
+	    	unregisterReceiver(intentReceiver);   
+	    	receiverRegistered = false;
+        }
+        
+        // Cancel the notifications
+    	NotificationManager mNotificationManager =
+        	    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+    	mNotificationManager.cancelAll();
+    	
+	}
 	
 	/**
 	 * Update the response text based on the spinner selection
@@ -416,12 +419,7 @@ public class MainActivity extends ActionBarActivity {
     
     /** Called when the user clicks the Stop button */
     public void stopResponses(View view) {
-        //---unregister the receiver---    
-    	if(receiverRegistered){
-    		unregisterReceiver(intentReceiver);
-    		receiverRegistered = false;
-    	}
-
+    	stopReciever();
     	ActivateButtons(receiverRegistered);
     	
     }
@@ -453,11 +451,15 @@ public class MainActivity extends ActionBarActivity {
     	        .setSmallIcon(R.drawable.ic_notification)
     	        .setContentTitle(getResources().getString(R.string.notification_title))
     	        .setAutoCancel(true)
+    	        .setOngoing(true)
     	        .setTicker(strNotificationsSent)
     	        .setContentText(strNotificationsSent);
     	
     	// Creates an explicit intent for an Activity in your app
     	Intent resultIntent = new Intent(this, MainActivity.class);
+
+		// Set flags to reuse intent if it still exists
+    	resultIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
     	// The stack builder object will contain an artificial back stack for the
     	// started Activity.

@@ -1,0 +1,24 @@
+SMS AutoResponder TODO
+======================
+
+Clean up persistent data to the right onResume/onPause/onSaveInstanceState methods.
+
+Change Settings menu to Customize
+Add Configuration menu item
+	Add Config screen
+		checkbox for ignore short numbers
+		checbox for reply to knowm contacts ONLY
+		add delay option for responding to the same number again. If another message from same number comes in within the delay time, ignore it. Still send to others.
+
+
+Increase font size in main screen
+consolidate into a single start/stop button
+
+Add stop button to notification -- research custom notification layouts.
+
+Add OK/Cancel dialog to Exit menu behavior
+
+
+
+ (✔WIDGET) One touch Auto-response ON/OFF widget. 
+ (✔AUTO ON/OFF) Able to set Auto-response Turn-ON duration, no worry even if forget to turn off.
